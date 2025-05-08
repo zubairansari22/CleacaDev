@@ -7,6 +7,7 @@ import lombok.Data;
 @Table(name = "master_users")
 @Data
 public class MasterUsers {
+
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "id")
@@ -15,25 +16,24 @@ public class MasterUsers {
         @Column(name = "user_name", nullable = false, length = 45)
         private String userName;
 
-        @Column(name = "email", length = 45, unique = true)
-        private String email;
+        @Column(name = "user_email", nullable = false, length = 45, unique = true)
+        private String userEmail;
 
-        @Column(name = "phone_no", nullable = false, length = 45, unique = true)
-        private String phoneNo;
-
-        @Column(name = "password")
-        private String password;
+        @Column(name = "phone_number", nullable = false, length = 45, unique = true)
+        private String phoneNumber;
 
         @Column(name = "is_active")
         private Boolean isActive;
 
-        @Column(name = "failed_attempts")
-        private Integer failedAttempts;
-
         @Column(name = "created_at", length = 45)
         private String createdAt;
 
+        @Column(name = "failed_attempts")
+        private Integer failedAttempts;
+
+        @Column(name = "password", length = 255)
+        private String password;
+
         @Column(name = "updated_at", length = 45)
         private String updatedAt;
-
 }

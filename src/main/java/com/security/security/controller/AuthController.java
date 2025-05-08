@@ -43,7 +43,7 @@ public class AuthController {
         String rawPassword = userData.get("password");
 
         // Check if email already exists
-        if (userRepository.findByEmail(email).isPresent()) {
+        if (userRepository.findByUserEmail(email).isPresent()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(Map.of("message", "Email already exists"));
         }
@@ -51,8 +51,8 @@ public class AuthController {
         // Create and save new user
         MasterUsers user = new MasterUsers();
         user.setUserName(name);
-        user.setEmail(email);
-        user.setPhoneNo(phone);
+        user.setUserEmail(email);
+        user.setPhoneNumber(phone);
         user.setPassword(passwordEncoder.encode(rawPassword));
         user.setIsActive(true);
         user.setFailedAttempts(0);
@@ -62,7 +62,7 @@ public class AuthController {
         MasterUsers savedUser = userRepository.save(user);
 
         // Generate token
-        String token = jwtUtil.generateToken(savedUser.getEmail());
+        String token = jwtUtil.generateToken(savedUser.getUserEmail());
 
         // Prepare response
         Map<String, Object> response = new HashMap<>();
@@ -71,8 +71,8 @@ public class AuthController {
         response.put("user", Map.of(
                 "id", savedUser.getId(),
                 "name", savedUser.getUserName(),
-                "email", savedUser.getEmail(),
-                "phone", savedUser.getPhoneNo(),
+                "email", savedUser.getUserEmail(),
+                "phone", savedUser.getPhoneNumber(),
                 "role", "user"  // Hardcoded role; replace if role logic exists
         ));
 

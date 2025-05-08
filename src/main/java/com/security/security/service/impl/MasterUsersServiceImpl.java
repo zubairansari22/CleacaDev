@@ -15,8 +15,8 @@ public class MasterUsersServiceImpl implements MasterUsersService {
     public Object saveUser(RequestRecord.RegisterRecord request) {
         MasterUsers user = new MasterUsers();
         user.setUserName(request.name());
-        user.setEmail(request.email());
-        user.setPhoneNo(request.phoneNo());
+        user.setUserEmail(request.email());
+        user.setPhoneNumber(request.phoneNo());
         user.setPassword("GauravGandu");
 //        masterUsersRepository.save(user);
         return "Success";
